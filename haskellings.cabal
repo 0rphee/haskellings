@@ -1,0 +1,80 @@
+cabal-version:      3.0
+name:               haskellings
+version:            0.1.0.0
+-- synopsis:
+-- description:
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             0rphee
+maintainer:         0rph3e@proton.me
+-- copyright:
+build-type:         Simple
+extra-doc-files:    CHANGELOG.md
+-- extra-source-files:
+
+
+common common-options
+    ghc-options: -Wall -Wextra -Wcompat
+    build-depends:
+            base >= 4.10 && < 5,
+    default-language: Haskell2010
+
+common exercises-settings
+    import: common-options
+
+common haskellings-settings
+    import: common-options
+    build-depends:
+        directory >= 1.3,
+        filepath >= 1.4.100,
+        process >= 1.6,
+        text,
+        bytestring,
+        fsnotify,
+        time,
+        containers
+
+library
+    import:           haskellings-settings
+    exposed-modules:  Watcher
+    -- other-modules:
+    -- other-extensions:
+    build-depends:    
+    hs-source-dirs:   src
+    default-language: Haskell2010
+
+executable haskellings
+    import:           haskellings-settings
+    main-is:          Main.hs
+    -- other-modules:
+    -- other-extensions:
+    build-depends:
+        haskellings
+
+    hs-source-dirs:   app
+    default-language: Haskell2010
+
+test-suite haskellings-test
+    import:           common-options
+    default-language: Haskell2010
+    -- other-modules:
+    -- other-extensions:
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+    main-is:          Main.hs
+    build-depends:
+        haskellings
+
+-- top part remains unchanged
+
+-- One executable per exercise:
+executable 01_hello_world
+  import:           exercises-settings
+  hs-source-dirs:   exercises/01_hello_world
+  main-is:          Main.hs
+
+executable 02_addition
+  import:           exercises-settings
+  hs-source-dirs:   exercises/02_addition
+  main-is:          Main.hs
+
